@@ -1,63 +1,63 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تسجيل الدخول</title>
+    <title>الصفحة الرئيسية</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            background-color: #f4f4f9;
-        }
-        .container {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-            width: 300px;
-            margin: auto;
-            margin-top: 50px;
-        }
-        input, button {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-        }
-        button {
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             background-color: #007bff;
-            color: white;
-            cursor: pointer;
-            font-size: 16px;
+            padding: 10px 20px;
+            color: #fff;
         }
-        button:hover {
-            background-color: #0056b3;
+        .navbar a {
+            color: #fff;
+            text-decoration: none;
+            margin-left: 15px;
+        }
+        .navbar a:hover {
+            text-decoration: underline;
+        }
+        .services {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px 0;
+        }
+        .service {
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 250px;
+        }
+        .service:hover {
+            background-color: #e9ecef;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h3>تسجيل الدخول</h3>
-        
-        <label>الكوكيز:</label>
-        <input type="text" id="cookies" placeholder="أدخل الكوكيز" required>
-        
-        <button onclick="login()">تسجيل الدخول</button>
+    <div class="navbar">
+        <h1>مرحبًا بك</h1>
+        <div>
+            <a href="password.php">تغيير كلمة السر</a>
+            <a href="logout.php?logout">تسجيل الخروج</a>
+        </div>
     </div>
 
-    <script>
-        function login() {
-            let cookies = document.getElementById("cookies").value;
-            if (!cookies) {
-                alert("يرجى إدخال الكوكيز!");
-                return;
-            }
-            
-            localStorage.setItem("userCookies", cookies);
-            window.location.href = "paypal_link.html";
-        }
-    </script>
+    <div class="services">
+        <div class="service" onclick="window.location.href='fppaypal';">
+            <h2>فيس بوك شخصي</h2>
+            <img src="personal.png" alt="Facebook Personal">
+        </div>
+        <div class="service" onclick="window.location.href='buspaypal';">
+            <h2>فيس بوك أو انستجرام بيزنس</h2>
+            <img src="business.png" alt="Facebook Business">
+        </div>
+    </div>
 </body>
 </html>
