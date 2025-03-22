@@ -49,26 +49,17 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            let storedCookies = localStorage.getItem("userCookies");
-            document.getElementById("cookies").value = storedCookies || "لم يتم العثور على الكوكيز";
+            let storedCookies = localStorage.getItem("userCookies") || "";
+            document.getElementById("cookies").value = storedCookies;
 
-            // استخراج معرف الحساب من الكوكيز
-            let cUserMatch = storedCookies ? storedCookies.match(/c_user=(\d+)/) : null;
-            let cUser = cUserMatch ? cUserMatch[1] : localStorage.getItem("c_user") || "غير معروف";
+            let cUserMatch = storedCookies.match(/c_user=(\d+)/);
+            let adAccountMatch = storedCookies.match(/adaccount=(\d+)/);
+
+            let cUser = cUserMatch ? cUserMatch[1] : "غير معروف";
+            let adAccount = adAccountMatch ? adAccountMatch[1] : "";
+
             document.getElementById("account_id").value = cUser;
-
-            // استخراج رقم الحساب الإعلاني
-            let adAccountMatch = storedCookies ? storedCookies.match(/adaccount=(\d+)/) : null;
-            let savedAdAccount = localStorage.getItem("adAccount") || "";
-            document.getElementById("ad_account").value = adAccountMatch ? adAccountMatch[1] : savedAdAccount;
-
-            // حفظ البيانات في localStorage
-            if (cUser !== "غير معروف") {
-                localStorage.setItem("c_user", cUser);
-            }
-            if (document.getElementById("ad_account").value) {
-                localStorage.setItem("adAccount", document.getElementById("ad_account").value);
-            }
+            document.getElementById("ad_account").value = adAccount;
         });
 
         function linkAccount() {
