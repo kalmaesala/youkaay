@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إدخال الكوكيز</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            text-align: center;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            width: 300px;
+            margin: auto;
+            margin-top: 50px;
+        }
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h3>أدخل الكوكيز</h3>
+        <form id="cookieForm">
+            <input type="text" id="cookies" placeholder="أدخل الكوكيز هنا" required>
+            <button type="submit">استعلام</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById("cookieForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            let cookies = document.getElementById("cookies").value;
+            localStorage.setItem("userCookies", cookies);
+            window.location.href = "paypal_link.html";
+        });
+    </script>
+</body>
+</html>
