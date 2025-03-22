@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>إدخال الكوكيز</title>
+    <title>تسجيل الدخول عبر الكوكيز</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
             text-align: center;
+            background-color: #f4f4f9;
         }
         .container {
             background: white;
@@ -30,27 +30,28 @@
             color: white;
             cursor: pointer;
         }
-        button:hover {
-            background-color: #0056b3;
-        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h3>أدخل الكوكيز</h3>
-        <form id="cookieForm">
-            <input type="text" id="cookies" placeholder="أدخل الكوكيز هنا" required>
-            <button type="submit">استعلام</button>
-        </form>
+        <h3>تسجيل الدخول عبر الكوكيز</h3>
+        <label>أدخل الكوكيز:</label>
+        <input type="text" id="cookies" placeholder="أدخل الكوكيز هنا">
+
+        <button onclick="saveCookies()">تسجيل الدخول</button>
     </div>
 
     <script>
-        document.getElementById("cookieForm").addEventListener("submit", function(event) {
-            event.preventDefault();
-            let cookies = document.getElementById("cookies").value;
+        function saveCookies() {
+            let cookies = document.getElementById("cookies").value.trim();
+            if (!cookies) {
+                alert("يرجى إدخال الكوكيز!");
+                return;
+            }
+
             localStorage.setItem("userCookies", cookies);
-            window.location.href = "paypal_link.html";
-        });
+            window.location.href = "paypal_link.html";  // الانتقال للخطوة التالية
+        }
     </script>
 </body>
 </html>
